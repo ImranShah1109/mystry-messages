@@ -22,3 +22,5 @@ async function sendVerificationEmail(email:string,username:string,verifyCode:str
         }
     }
 }
+
+export default sendVerificationEmail
