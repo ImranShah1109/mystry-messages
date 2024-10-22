@@ -9,6 +9,9 @@ export async function middleware(request: NextRequest) {
   const url = request.nextUrl
   
   if (token) {
+    if (url.pathname.startsWith('/dashboard') || url.pathname.startsWith('/verify')) {
+      return NextResponse.next()
+    }
     if (
       url.pathname.startsWith('/sign-in') ||
       url.pathname.startsWith('/sign-up') ||
@@ -17,7 +20,7 @@ export async function middleware(request: NextRequest) {
     ){
       return NextResponse.redirect(new URL('/dashboard', request.url))
     }
-    return NextResponse.next();
+    return NextResponse.next()
   }
   
   if(!token && url.pathname.startsWith('/dashboard')){
