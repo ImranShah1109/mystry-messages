@@ -5,41 +5,41 @@ import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
 
 
-export const authOptions : NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
     providers: [
         CredentialsProvider({
-            id:'credentials',
-            name:'Credentials',
+            id: 'credentials',
+            name: 'Credentials',
             credentials: {
-                email: { label: "Email", type: "text"},
+                email: { label: "Email", type: "text" },
                 password: { label: "Password", type: "password" }
             },
-            async authorize(credentials:any):Promise<any>{
+            async authorize(credentials: any): Promise<any> {
                 await dbConnect()
                 try {
                     const user = await UserModel.findOne({
-                        $or:[
-                            {email: credentials.identifier},
-                            {username: credentials.identifier}
+                        $or: [
+                            { email: credentials.identifier },
+                            { username: credentials.identifier }
                         ]
                     })
 
                     if (!user) {
-                        throw new Error('No user found by this email')
+                        throw new Error('No user found by this email or username')
                     }
 
                     if (!user.isVerified) {
-                        throw new Error('Please verify your account before login    ')
+                        throw new Error('Please verify your account before login')
                     }
 
-                    const isPasswordCorrect = await bcrypt.compare(credentials.password,user.password)
+                    const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password)
                     if (isPasswordCorrect) {
                         return user
-                    }else{
+                    } else {
                         throw new Error('Incorrect Password')
                     }
 
-                } catch (error:any) {
+                } catch (error: any) {
                     throw new Error(error)
                 }
             }
@@ -62,12 +62,12 @@ export const authOptions : NextAuthOptions = {
             }
             return session
         },
-        async jwt({ token, user,}) {
+        async jwt({ token, user, }) {
             if (user) {
                 token._id = user._id?.toString()
                 token.isVerified = user.isVerified
                 token.isAcceptingMessages = user.isAcceptingMessages,
-                token.username = user.username
+                    token.username = user.username
             }
             return token
         }
