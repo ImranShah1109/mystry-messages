@@ -6,8 +6,6 @@ import Link from "next/link"
 import { useState } from "react"
 import { useToast } from "@/hooks/use-toast"
 import { useRouter } from "next/navigation"
-import axios, {AxiosError} from "axios"
-import { ApiResponse } from "@/types/ApiResponse"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -62,7 +60,7 @@ const page = () => {
         <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
           <div className="text-center">
             <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
-              Join Mestery Message
+              Join Mystery Messages
             </h1>
             <p className="mb-4">Sign in to start your anonymous adventure</p>
           </div>
@@ -104,7 +102,7 @@ const page = () => {
           <div className="text-center mt-4">
               <p>
                 Don't have an account?&nbsp;
-                <Link href={"/sign-up"} className="text-blue hover:text-blue-800">Sign in</Link>
+                <Link href={"/sign-up"} className="text-blue hover:text-blue-800">Sign up</Link>
               </p>
           </div>
         </div>
