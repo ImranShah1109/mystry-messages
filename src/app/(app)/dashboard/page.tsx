@@ -121,9 +121,16 @@ const page = () => {
     }
   }
 
-  const {username} = session?.user as User
   const baseUrl = `${window.location.protocol}//${window.location.host}`
-  const profileUrl = `${baseUrl}/u/${username}`
+  let profileUrl
+  if (session?.user){
+    const {username} = session?.user as User
+    profileUrl = `${baseUrl}/u/${username}`
+    localStorage.setItem('username',username || '')
+  }else{
+    const un = localStorage.getItem('username')
+    profileUrl = `${baseUrl}/u/${un}`
+  }
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(profileUrl)
