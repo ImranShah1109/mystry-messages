@@ -25,7 +25,6 @@ export async function GET(request: Request) {
 
     try {
         const user = await UserModel.findOne({ _id: userId })
-
         if (user?.messages.length == 0) {
             return Response.json(
                 {
@@ -36,11 +35,12 @@ export async function GET(request: Request) {
             )
         } else {
             const userWithMessages = await UserModel.aggregate([
-                { $match: { id: userId } },
+                { $match: { _id: userId } },
                 { $unwind: '$messages' },
                 { $sort: { 'messages.createdAt': -1 } },
                 { $group: { _id: '$_id', messages: { $push: '$messages' } } }
             ])
+            console.log('come here 2', userWithMessages)
             return Response.json(
                 {
                     success: true,
