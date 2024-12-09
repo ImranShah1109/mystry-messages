@@ -74,6 +74,10 @@ const page = () => {
               description: "Showing latest messages.",
             })
           }
+
+          toast({
+            title:response.data.message
+          })
         }
       } catch (error) {
         const axiosError = error as AxiosError<ApiResponse>

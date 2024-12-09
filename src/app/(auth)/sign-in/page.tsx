@@ -42,7 +42,7 @@ const page = () => {
     if (result?.error) {
       setIsSubmitting(false)
       toast({
-        title: "Login Failed",
+        title: "Sign in Failed",
         description: result.error,
         variant: "destructive"
       })
@@ -50,6 +50,10 @@ const page = () => {
 
     if (result?.url) {
       setIsSubmitting(false)
+      toast({
+        title: "Success",
+        description: "Sign in successfully.",
+      })
       router.replace("/dashboard")
     }
     
