@@ -40,11 +40,11 @@ export async function GET(request: Request) {
                 { $sort: { 'messages.createdAt': -1 } },
                 { $group: { _id: '$_id', messages: { $push: '$messages' } } }
             ])
-            console.log('come here 2', userWithMessages)
+
             return Response.json(
                 {
                     success: true,
-                    messages: userWithMessages[0].messages
+                    messages: userWithMessages[0].messages,
                 },
                 { status: 200 }
             )

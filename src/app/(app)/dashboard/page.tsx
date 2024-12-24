@@ -76,7 +76,8 @@ const page = () => {
           }
 
           toast({
-            title:response.data.message
+            title: "Refreshed Messages",
+            description: "No latest messages is availabel.",
           })
         }
       } catch (error) {
