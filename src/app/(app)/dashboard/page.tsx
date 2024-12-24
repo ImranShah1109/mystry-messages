@@ -74,11 +74,6 @@ const page = () => {
               description: "Showing latest messages.",
             })
           }
-
-          toast({
-            title: "Refreshed Messages",
-            description: "No latest messages is availabel.",
-          })
         }
       } catch (error) {
         const axiosError = error as AxiosError<ApiResponse>

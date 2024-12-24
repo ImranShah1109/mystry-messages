@@ -34,7 +34,7 @@ export async function DELETE(request: Request, { params }: { params: { messageid
             return Response.json(
                 {
                     success: false,
-                    messages: "Message not found or already deleted."
+                    message: "Message not found or already deleted."
                 },
                 { status: 404 }
             )
@@ -43,7 +43,7 @@ export async function DELETE(request: Request, { params }: { params: { messageid
         return Response.json(
             {
                 success: true,
-                messages: "Message has been deleted successfully"
+                message: "Message has been deleted successfully"
             },
             { status: 200 }
         )
