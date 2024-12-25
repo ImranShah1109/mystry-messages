@@ -117,16 +117,21 @@ const page = () => {
     }
   }
 
-  const baseUrl = `${window.location.protocol}//${window.location.host}`
-  let profileUrl
-  if (session?.user){
-    const {username} = session?.user as User
-    profileUrl = `${baseUrl}/u/${username}`
-    localStorage.setItem('username',username || '')
-  }else{
-    const un = localStorage.getItem('username')
-    profileUrl = `${baseUrl}/u/${un}`
-  }
+  const [profileUrl, setProfileUrl] = useState('')
+  useEffect(() => {
+    const baseUrl = `${window.location.protocol}//${window.location.host}`
+    let url
+    if (session?.user){
+      const {username} = session?.user as User
+      url = `${baseUrl}/u/${username}`
+      setProfileUrl(url)
+      localStorage.setItem('username',username || '')
+    }else{
+      const un = localStorage.getItem('username')
+      url = `${baseUrl}/u/${un}`
+      setProfileUrl(url)
+    }
+  }, [])
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(profileUrl)
