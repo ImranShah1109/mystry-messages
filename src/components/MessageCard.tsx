@@ -24,6 +24,7 @@ import { Message } from "@/model/User"
 import { useToast } from "@/hooks/use-toast"
 import axios from "axios"
 import { ApiResponse } from "@/types/ApiResponse"
+import dayjs from "dayjs"
   
 type MessageCardProps = {
     message: Message
@@ -33,6 +34,7 @@ type MessageCardProps = {
 const MessageCard = ({message, onMessageDelete}: MessageCardProps) => {
     const {toast} = useToast()
     const messageDate = new Date(message.createdAt)
+    const formattedDate = dayjs(messageDate).format('ddd DD MMM, hh:mm A')
     const handleDeleteConfirm = async () => {
         const response = await axios.delete<ApiResponse>(`/api/delete-message/${message._id}`)
         toast({
@@ -63,7 +65,7 @@ const MessageCard = ({message, onMessageDelete}: MessageCardProps) => {
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
-            <CardDescription>{messageDate.toDateString()}</CardDescription>
+            <CardDescription>{formattedDate}</CardDescription>
         </CardHeader>
         {/* <CardContent>
         </CardContent> */}
